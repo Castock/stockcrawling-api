@@ -33,6 +33,6 @@ public class CrawlingController {
 
         ResponseDTO<StockEntity> response = ResponseDTO.<StockEntity>builder().data(list).build();
 
-        return ResponseEntity.badRequest().body(response);
+        return ResponseEntity.ok().body(response);
     }
 }
