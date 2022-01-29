@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class CrawlingService {
     private static final String StockUrlforCookies = "https://finance.naver.com/sise/field_submit.naver?menu=market_sum&returnUrl=http%3A%2F%2Ffinance.naver.com%2Fsise%2Fsise_market_sum.naver&fieldIds=quant&fieldIds=market_sum&fieldIds=open_val&fieldIds=prev_quant&fieldIds=high_val&fieldIds=low_val";
     private static final String NaverStockUrl = "https://finance.naver.com/sise/sise_market_sum.naver";
-    public String StockData() {
+    public List<StockEntity> StockData() {
         List<StockEntity> datalist = new ArrayList<>();
         try {
             // 네이버 시가총액
@@ -27,7 +27,7 @@ public class CrawlingService {
             Map<String,String> cookies = response.cookies();
 
             int lastpage = 1;
-            String tmp = "";
+            //String tmp = "";
 
             for(int stockidx = 0;stockidx < 2; stockidx++) {//0 -> 코스피 1 -> 코스닥
                 for(int i=1;i<=lastpage; i++) {
@@ -72,13 +72,13 @@ public class CrawlingService {
                         //stockidx
                         stockEntity.setStockidx(stockidx);
                         //stockdate
-                        stockEntity.setStockdate(LocalDate.now().toString());
+                        stockEntity.setStockdate(java.sql.Date.valueOf(LocalDate.now()));
                         //endprice
                         stockEntity.setEndprice(Integer.parseInt(stockinfo.get(2).text().replaceAll("\\,","").trim()));
                         //fprice
                         stockEntity.setFprice(Integer.parseInt(stockinfo.get(3).text().replaceAll("\\,","").trim()));
                         //frate
-                        stockEntity.setFrate(stockinfo.get(4).text());
+                        stockEntity.setFrate(Float.parseFloat(stockinfo.get(4).text().replace("%","").trim()));//+ -
                         //startprice
                         stockEntity.setStartprice(Integer.parseInt(stockinfo.get(8).text().replaceAll("\\,","").trim()));
                         //highprice
@@ -87,15 +87,15 @@ public class CrawlingService {
                         stockEntity.setLowprice(Integer.parseInt(stockinfo.get(10).text().replaceAll("\\,","").trim()));
                         
                         datalist.add(stockEntity);
-                        tmp += stockEntity + "\n";
+                        //tmp += stockEntity + "\n";
                     }
                 }
             }
-            return tmp;
-
+            return datalist;
         }
         catch(Exception e) {
-            return e.getMessage();
+            e.printStackTrace();
         }
+        return datalist;
     }
 }

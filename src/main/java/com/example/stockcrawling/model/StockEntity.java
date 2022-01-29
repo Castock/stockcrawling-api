@@ -1,5 +1,7 @@
 package com.example.stockcrawling.model;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +16,7 @@ import lombok.ToString;
 public class StockEntity {
     private int id;
     private String stockcode;
-    private String stockdate;
+    private Date stockdate;
     private String stockname;
     private int stockidx;
     private int highprice;
@@ -22,5 +24,5 @@ public class StockEntity {
     private int startprice;
     private int endprice;
     private int fprice;
-    private String frate;
+    private float frate;
 }
