@@ -13,12 +13,12 @@
    "stockcode": "000000",
    "stockdate": "2022-02-03",
    "stockname": "창진고",
-   "stockidx": "1",
-   "highprice": "9999999",
-   "lowprice": "9999999",
-   "startprice": "9999999",
-   "endprice": "9999999",
-   "fprice": "9999999",
+   "stockidx": 1,
+   "highprice": 9999999,
+   "lowprice": 9999999,
+   "startprice": 9999999,
+   "endprice": 9999999,
+   "fprice": 9999999,
    "frate": "99.99"
    }
   ]
